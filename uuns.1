@@ -1,0 +1,64 @@
+.\" Copyright (c) 2017 Steven McDonald <steven@steven-mcdonald.id.au>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate$
+.Dt uuns 8
+.Os
+.Sh NAME
+.Nm uuns
+.Nd create unprivileged user namespaces
+.Sh SYNOPSIS
+.Nm uuns
+.Op Ar command
+.Sh DESCRIPTION
+The
+.Nm
+command creates an unprivileged user namespace.
+.Pp
+The
+.Nm
+utility is designed to work on Alpine Linux's hardened kernel by using
+file capabilities to elevate privileges when calling
+.Xr unshare 2 .
+It is otherwise equivalent to invoking
+.Sq unshare --user .
+.Sh SEE ALSO
+.Xr unshare 1 ,
+.Xr unshare 2 ,
+.Xr capabilities 7 ,
+.Xr user_namespaces 7
+.Sh CAVEATS
+The
+.Nm
+binary should have execute permission restricted to trusted users.
+As a security measure, the Alpine Linux kernel restricts the creation
+of user namespaces to threads with the
+.Xr capabilities 7
+.Dv CAP_SYS_ADMIN ,
+.Dv CAP_SETUID
+and
+.Dv CAP_SETGID .
+Allowing all users to execute
+.Nm
+would effectively bypass that restriction.
+.Pp
+Typically,
+.Nm
+is installed with the group
+.Sq uuns
+and made executable only by that group.
+The administrator may then grant permission to create unprivileged user
+namespaces by adding users to the
+.Sq uuns
+group.

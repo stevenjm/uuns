@@ -1,4 +1,4 @@
-<!-- Automatically generated from uuns.1. -->
+<!-- Automatically generated from uuns.8. -->
 
 uuns(8) - System Manager's Manual
 
